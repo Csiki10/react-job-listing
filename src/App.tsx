@@ -12,6 +12,7 @@ import JobPage, { jobLoader } from "./pages/JobPage";
 import { NotFound } from "./pages/NotFound";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
+import { Job } from "./models/job";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -39,9 +40,9 @@ const App = () => {
     )
   );
 
-  async function addJob(newJob) {
+  async function addJob(newJob: Job): Promise<void> {
     try {
-      const res = await fetch("/api/jobs", {
+      await fetch("/api/jobs", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -53,20 +54,17 @@ const App = () => {
     }
   }
 
-  async function deleteJob(id) {
+  async function deleteJob(id: string): Promise<void> {
     try {
-      const res = await fetch(`/api/jobs/${id}`, {
-        method: "delete",
-      });
+      await fetch(`/api/jobs/${id}`, { method: "DELETE" });
     } catch (error) {
-      console.log(error);
+      console.error("Failed to delete job:", error);
     }
   }
 
-  async function updateJob(job) {
-    console.log(job);
+  async function updateJob(job: Job): Promise<void> {
     try {
-      const res = await fetch(`/api/jobs/${job.id}`, {
+      await fetch(`/api/jobs/${job.id}`, {
         method: "put",
         body: JSON.stringify(job),
       });

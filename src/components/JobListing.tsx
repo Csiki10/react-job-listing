@@ -2,25 +2,13 @@ import React from "react";
 import { useState } from "react";
 import { FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Job } from "../models/job";
 
-// interface Prop {
-//   id: number;
-//   title: string;
-//   type: string;
-//   description: string;
-//   location: string;
-//   salary: string;
-//   company: Company;
-// }
+export interface JobListingProps {
+  job: Job;
+}
 
-// interface Company {
-//   name: string;
-//   description: string;
-//   contactEmail: string;
-//   contactPhone: string;
-// }
-
-const JobListing = ({ job }) => {
+const JobListing = ({ job }: JobListingProps) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const description = showFullDescription

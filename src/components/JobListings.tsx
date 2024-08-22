@@ -3,13 +3,14 @@ import JobListing from "./JobListing";
 import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
+import { Job } from "../models/job";
 
 interface Porps {
   isHomePage: boolean;
 }
 
 const JobListings = ({ isHomePage }: Porps) => {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(Array<Job>);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
