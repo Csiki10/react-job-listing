@@ -10,23 +10,71 @@ import MainLayout from "./layouts/MainLayout";
 import JobsPage from "./pages/JobsPage";
 import JobPage, { jobLoader } from "./pages/JobPage";
 import { NotFound } from "./pages/NotFound";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<MainLayout></MainLayout>}>
-      <Route index element={<HomePage></HomePage>}></Route>
-      <Route path="/jobs" element={<JobsPage></JobsPage>}></Route>
-      <Route
-        path="/jobs/:id"
-        element={<JobPage></JobPage>}
-        loader={jobLoader}
-      ></Route>
-      <Route path="*" element={<NotFound></NotFound>}></Route>
-    </Route>
-  )
-);
+import AddJobPage from "./pages/AddJobPage";
+import EditJobPage from "./pages/EditJobPage";
 
 const App = () => {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout></MainLayout>}>
+        <Route index element={<HomePage></HomePage>}></Route>
+        <Route path="/jobs" element={<JobsPage></JobsPage>}></Route>
+        <Route
+          path="/jobs/:id"
+          element={<JobPage delteJob={deleteJob}></JobPage>}
+          loader={jobLoader}
+        ></Route>
+        <Route
+          path="/add-job"
+          element={<AddJobPage addJobSubmit={addJob}></AddJobPage>}
+        ></Route>
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage updateJobSubmit={updateJob}></EditJobPage>}
+          loader={jobLoader}
+        ></Route>
+
+        <Route path="*" element={<NotFound></NotFound>}></Route>
+      </Route>
+    )
+  );
+
+  async function addJob(newJob) {
+    try {
+      const res = await fetch("/api/jobs", {
+        method: "post",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newJob),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deleteJob(id) {
+    try {
+      const res = await fetch(`/api/jobs/${id}`, {
+        method: "delete",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function updateJob(job) {
+    console.log(job);
+    try {
+      const res = await fetch(`/api/jobs/${job.id}`, {
+        method: "put",
+        body: JSON.stringify(job),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <RouterProvider router={router} />

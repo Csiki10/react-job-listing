@@ -1,16 +1,29 @@
-import { useParams, useLoaderData, Link } from "react-router-dom";
-import { FaArrowLeft, FaLocationArrow, FaMap } from "react-icons/fa";
+import { useLoaderData, Link, useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
-const JobPage = () => {
+const JobPage = ({ delteJob }) => {
   const job = useLoaderData();
+  const navigate = useNavigate();
+
+  function onDeleteClick(jobId) {
+    const confirm = window.confirm("Are you sure to delte this listing?");
+    if (!confirm) {
+      return;
+    }
+
+    delteJob(jobId);
+    toast.success("Job deleted succesfully");
+    navigate("/jobs");
+  }
 
   return (
     <>
       <section>
         <div className="container m-auto py-6 px-6">
           <Link
-            to="/jobs.html"
+            to="/jobs"
             className="text-indigo-500 hover:text-indigo-600 flex items-center"
           >
             <FaArrowLeft className="mr-2"></FaArrowLeft> Back to Job Listings
@@ -75,12 +88,15 @@ const JobPage = () => {
               <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                 <h3 className="text-xl font-bold mb-6">Manage Job</h3>
                 <Link
-                  to={`/jobs/edit/${job.id}`}
+                  to={`/edit-job/${job.id}`}
                   className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >
                   Edit Job
                 </Link>
-                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                <button
+                  onClick={() => onDeleteClick(job.id)}
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
                   Delete Job
                 </button>
               </div>
