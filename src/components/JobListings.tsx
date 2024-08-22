@@ -1,13 +1,33 @@
 import React from "react";
-import jobs from "../jobs.json";
 import JobListing from "./JobListing";
+import { useState } from "react";
+import { useEffect } from "react";
+import Spinner from "./Spinner";
 
 interface Porps {
   isHomePage: boolean;
 }
 
 const JobListings = ({ isHomePage }: Porps) => {
-  const displayedJobs = isHomePage ? jobs.slice(0, 3) : jobs;
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const res = await fetch("http://localhost:8000/jobs");
+        const data = await res.json();
+        console.log(data);
+        setJobs(data);
+      } catch (error) {
+        console.log("error: " + error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
 
   return (
     <section className="bg-blue-50 px-4 py-10">
@@ -15,11 +35,16 @@ const JobListings = ({ isHomePage }: Porps) => {
         <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
           {isHomePage ? "Recent Jobs" : "Browse Jobs"}
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {displayedJobs.map((job) => (
-            <JobListing key={job.id} job={job}></JobListing>
-          ))}
-        </div>
+
+        {loading ? (
+          <Spinner loading={loading} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {jobs.map((job) => (
+              <JobListing key={job.id} job={job}></JobListing>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
