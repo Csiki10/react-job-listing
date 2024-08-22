@@ -1,4 +1,3 @@
-import React from "react";
 import { ClipLoader } from "react-spinners";
 
 const override = {
@@ -6,7 +5,7 @@ const override = {
   margin: "300px auto",
 };
 
-const Spinner = ({ loading }) => {
+const Spinner = ({ loading }: { loading: boolean }) => {
   return (
     <ClipLoader
       color="#4338ca"

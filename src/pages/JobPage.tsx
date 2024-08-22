@@ -2,12 +2,13 @@ import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
 import { toast } from "react-toastify";
+import { Job } from "../models/job";
 
-const JobPage = ({ delteJob }) => {
-  const job = useLoaderData();
+const JobPage = ({ delteJob }: { delteJob: (jobId: string) => void }) => {
+  const job = useLoaderData() as Job;
   const navigate = useNavigate();
 
-  function onDeleteClick(jobId) {
+  function onDeleteClick(jobId: string) {
     const confirm = window.confirm("Are you sure to delte this listing?");
     if (!confirm) {
       return;
@@ -108,7 +109,7 @@ const JobPage = ({ delteJob }) => {
   );
 };
 
-const jobLoader = async ({ params }) => {
+const jobLoader = async (params: any) => {
   const res = await fetch(`/api/jobs/${params.id}`);
   const data = await res.json();
   return data;

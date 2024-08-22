@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Job } from "../models/job";
 
-const AddJobPage = ({ addJobSubmit }) => {
+const AddJobPage = ({ addJobSubmit }: { addJobSubmit: (job: Job) => void }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -15,10 +16,11 @@ const AddJobPage = ({ addJobSubmit }) => {
 
   const navigate = useNavigate();
 
-  function submitForm(e) {
+  function submitForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const newJob = {
+    const newJob: Job = {
+      id: "",
       title,
       type,
       location,
@@ -95,7 +97,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                   id="description"
                   name="description"
                   className="border rounded w-full py-2 px-3"
-                  rows="4"
+                  rows={4}
                   placeholder="Add any job duties, expectations, requirements, etc"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -178,7 +180,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                   id="company_description"
                   name="company_description"
                   className="border rounded w-full py-2 px-3"
-                  rows="4"
+                  rows={4}
                   placeholder="What does your company do?"
                   value={companyDescription}
                   onChange={(e) => setCompanyDescription(e.target.value)}
