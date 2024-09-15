@@ -8,6 +8,8 @@ export interface JobListingProps {
 }
 
 const JobListing = ({ job }: JobListingProps) => {
+  console.warn(job);
+  console.warn(job.id);
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const description = showFullDescription
@@ -39,7 +41,7 @@ const JobListing = ({ job }: JobListingProps) => {
             {job.location}
           </div>
           <Link
-            to={`/jobs/?id=${job.id}`}
+            to={`/jobs/${job.id}`}
             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Read More
