@@ -46,7 +46,7 @@ const JobListings = ({ isHomePage }: Porps) => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {jobs.map((job) => (
-              <JobListing key={job.id} job={job}></JobListing>
+              <JobListing key={job._id} job={job}></JobListing>
             ))}
           </div>
         )}

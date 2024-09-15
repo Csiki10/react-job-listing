@@ -65,7 +65,7 @@ const App = () => {
 
   async function updateJob(job: Job): Promise<void> {
     try {
-      await fetch(`${apiUrl}/jobs/${job.id}`, {
+      await fetch(`${apiUrl}/jobs/${job._id}`, {
         method: "put",
         body: JSON.stringify(job),
       });
