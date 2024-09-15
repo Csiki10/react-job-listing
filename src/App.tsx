@@ -14,6 +14,8 @@ import EditJobPage from "./pages/EditJobPage";
 import { Job } from "./models/job";
 
 const App = () => {
+  const apiUrl = `${import.meta.env.VITE_API_URL}`;
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout></MainLayout>}>
@@ -41,7 +43,7 @@ const App = () => {
 
   async function addJob(newJob: Job): Promise<void> {
     try {
-      await fetch("/api/jobs", {
+      await fetch(apiUrl + "/jobs", {
         method: "post",
         headers: {
           "Content-type": "application/json",
@@ -55,7 +57,7 @@ const App = () => {
 
   async function deleteJob(id: string): Promise<void> {
     try {
-      await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+      await fetch(`${apiUrl}/jobs/${id}`, { method: "DELETE" });
     } catch (error) {
       console.error("Failed to delete job:", error);
     }
@@ -63,7 +65,7 @@ const App = () => {
 
   async function updateJob(job: Job): Promise<void> {
     try {
-      await fetch(`/api/jobs/${job.id}`, {
+      await fetch(`${apiUrl}/jobs/${job.id}`, {
         method: "put",
         body: JSON.stringify(job),
       });

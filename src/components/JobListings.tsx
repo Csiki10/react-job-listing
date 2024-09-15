@@ -14,12 +14,16 @@ const JobListings = ({ isHomePage }: Porps) => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const apiUrl = isHomePage ? "/api/jobs?_limit=3" : "/api/jobs";
+      const apiUrl = isHomePage
+        ? `${import.meta.env.VITE_API_URL}/jobs?_limit=3`
+        : `${import.meta.env.VITE_API_URL}/jobs`;
+
+      console.log(apiUrl);
 
       try {
         const res = await fetch(apiUrl);
         const data = await res.json();
-        setJobs(data);
+        setJobs(data.jobs);
       } catch (error) {
         console.log("error: " + error);
       } finally {
