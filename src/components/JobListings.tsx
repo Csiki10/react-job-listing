@@ -23,7 +23,7 @@ const JobListings = ({ isHomePage }: Porps) => {
       try {
         const res = await fetch(apiUrl);
         const data = await res.json();
-        setJobs(data.jobs);
+        setJobs(data);
       } catch (error) {
         console.log("error: " + error);
       } finally {
