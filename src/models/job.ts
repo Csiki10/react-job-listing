@@ -1,5 +1,5 @@
 export interface Job {
-  _id: string;
+  id: string; // todo itt az id nem jó mert _id mongoban
   title: string;
   type: string;
   location: string;

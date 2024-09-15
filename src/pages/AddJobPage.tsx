@@ -20,7 +20,7 @@ const AddJobPage = ({ addJobSubmit }: { addJobSubmit: (job: Job) => void }) => {
     e.preventDefault();
 
     const newJob: Job = {
-      _id: "",
+      id: "",
       title,
       type,
       location,
