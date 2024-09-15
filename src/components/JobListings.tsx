@@ -15,7 +15,7 @@ const JobListings = ({ isHomePage }: Porps) => {
   useEffect(() => {
     const fetchJobs = async () => {
       const apiUrl = isHomePage
-        ? `${import.meta.env.VITE_API_URL}/jobs?_limit=3`
+        ? `${import.meta.env.VITE_API_URL}/jobs`
         : `${import.meta.env.VITE_API_URL}/jobs`;
 
       console.log(apiUrl);
