@@ -7,15 +7,13 @@ import {
 import HomePage from "./pages/HomePage";
 import MainLayout from "./layouts/MainLayout";
 import JobsPage from "./pages/JobsPage";
-import JobPage, { jobLoader } from "./pages/JobPage";
+import JobPage from "./pages/JobPage";
 import { NotFound } from "./pages/NotFound";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
-import { Job } from "./models/job";
+import jobLoader from "./helpers/loader";
 
 const App = () => {
-  const apiUrl = `${import.meta.env.VITE_API_URL}`;
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout></MainLayout>}>
@@ -23,16 +21,13 @@ const App = () => {
         <Route path="/jobs" element={<JobsPage></JobsPage>}></Route>
         <Route
           path="/jobs/:id"
-          element={<JobPage delteJob={deleteJob}></JobPage>}
+          element={<JobPage></JobPage>}
           loader={jobLoader}
         ></Route>
-        <Route
-          path="/add-job"
-          element={<AddJobPage addJobSubmit={addJob}></AddJobPage>}
-        ></Route>
+        <Route path="/add-job" element={<AddJobPage></AddJobPage>}></Route>
         <Route
           path="/edit-job/:id"
-          element={<EditJobPage updateJobSubmit={updateJob}></EditJobPage>}
+          element={<EditJobPage></EditJobPage>}
           loader={jobLoader}
         ></Route>
 
@@ -40,39 +35,6 @@ const App = () => {
       </Route>
     )
   );
-
-  async function addJob(newJob: Job): Promise<void> {
-    try {
-      await fetch(apiUrl + "/jobs", {
-        method: "post",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(newJob),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function deleteJob(id: string): Promise<void> {
-    try {
-      await fetch(`${apiUrl}/jobs/${id}`, { method: "DELETE" });
-    } catch (error) {
-      console.error("Failed to delete job:", error);
-    }
-  }
-
-  async function updateJob(job: Job): Promise<void> {
-    try {
-      await fetch(`${apiUrl}/jobs/${job.id}`, {
-        method: "put",
-        body: JSON.stringify(job),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <>

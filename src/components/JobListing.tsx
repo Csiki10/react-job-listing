@@ -9,7 +9,6 @@ export interface JobListingProps {
 
 const JobListing = ({ job }: JobListingProps) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
-
   const description = showFullDescription
     ? job.description
     : job.description.substring(0, 90) + "...";

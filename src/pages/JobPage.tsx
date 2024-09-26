@@ -1,11 +1,11 @@
 import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
-import { toast } from "react-toastify";
 import { Job } from "../models/job";
-import { JobDTO } from "../models/jobDTO";
+import { deleteJob } from "../services/api";
+import { toast } from "react-toastify";
 
-const JobPage = ({ delteJob }: { delteJob: (jobId: string) => void }) => {
+const JobPage = () => {
   const job = useLoaderData() as Job;
   const navigate = useNavigate();
 
@@ -15,9 +15,18 @@ const JobPage = ({ delteJob }: { delteJob: (jobId: string) => void }) => {
       return;
     }
 
-    delteJob(jobId);
-    toast.success("Job deleted succesfully");
-    navigate("/jobs");
+    handleDelteJob(jobId);
+  }
+
+  function handleDelteJob(jobId: string) {
+    try {
+      deleteJob(jobId);
+      toast.success("Job deleted successfully");
+      navigate("/jobs");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to delete job");
+    }
   }
 
   return (
@@ -110,18 +119,4 @@ const JobPage = ({ delteJob }: { delteJob: (jobId: string) => void }) => {
   );
 };
 
-const jobLoader = async (params: any): Promise<Job> => {
-  const apiUrl = `${import.meta.env.VITE_API_URL}`;
-  const res = await fetch(`${apiUrl}/jobs/${params.params.id}`);
-  const data: JobDTO = await res.json();
-
-  // Convert JobDTO to match the front-end Job model
-  const job = {
-    ...data,
-    id: data._id, // Map _id to id
-  };
-
-  return job;
-};
-
-export { JobPage as default, jobLoader };
+export { JobPage as default };

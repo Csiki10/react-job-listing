@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CreateJobDto } from "../models/createJobDto";
+import { addJob } from "../services/api";
 import { toast } from "react-toastify";
-import { Job } from "../models/job";
 
-const AddJobPage = ({ addJobSubmit }: { addJobSubmit: (job: Job) => void }) => {
+const AddJobPage = () => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("Full-Time");
   const [location, setLocation] = useState("");
@@ -19,8 +20,7 @@ const AddJobPage = ({ addJobSubmit }: { addJobSubmit: (job: Job) => void }) => {
   function submitForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const newJob: Job = {
-      id: "",
+    const newJob: CreateJobDto = {
       title,
       type,
       location,
@@ -34,9 +34,18 @@ const AddJobPage = ({ addJobSubmit }: { addJobSubmit: (job: Job) => void }) => {
       },
     };
 
-    addJobSubmit(newJob);
-    toast.success("Job added succesfully");
-    return navigate("/jobs");
+    handleAddJob(newJob);
+  }
+
+  function handleAddJob(newJob: CreateJobDto) {
+    try {
+      addJob(newJob);
+      toast.success("Job updated successfully");
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update job");
+    }
   }
 
   return (

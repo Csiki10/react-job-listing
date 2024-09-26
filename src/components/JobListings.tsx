@@ -3,7 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { Job } from "../models/job";
-import { JobDTO } from "../models/jobDTO";
+import { JobDto } from "../models/jobDto";
+import { JobDtoToJob } from "../converters/jobConverter";
 
 interface Porps {
   isHomePage: boolean;
@@ -23,12 +24,8 @@ const JobListings = ({ isHomePage }: Porps) => {
         const res = await fetch(apiUrl);
         const data = await res.json();
 
-        const jobsCopy = data.map((job: JobDTO) => ({
-          ...job,
-          id: job._id,
-        }));
-
-        setJobs(jobsCopy);
+        const convertedJobs = data.map((job: JobDto) => JobDtoToJob(job));
+        setJobs(convertedJobs);
       } catch (error) {
         console.log("error: " + error);
       } finally {

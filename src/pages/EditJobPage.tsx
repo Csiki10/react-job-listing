@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { Job } from "../models/job";
+import { UpdateJobDto } from "../models/updateJobDto";
+import { updateJob } from "../services/api";
+import { toast } from "react-toastify";
 
-const EditJobPage = ({
-  updateJobSubmit,
-}: {
-  updateJobSubmit: (job: Job) => void;
-}) => {
+const EditJobPage = () => {
   const job = useLoaderData() as Job;
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState(job.title);
   const [type, setType] = useState(job.type);
@@ -24,13 +22,10 @@ const EditJobPage = ({
   const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
   const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
 
-  const navigate = useNavigate();
-
   function submitForm(e: React.SyntheticEvent) {
     e.preventDefault();
 
-    const updatedJob = {
-      id: id!,
+    const updatedJob: UpdateJobDto = {
       title,
       type,
       location,
@@ -44,9 +39,18 @@ const EditJobPage = ({
       },
     };
 
-    updateJobSubmit(updatedJob);
-    toast.success("Job updated succesfully");
-    return navigate("/jobs");
+    handleEditJob(id!, updatedJob);
+  }
+
+  function handleEditJob(id: string, updatedJob: UpdateJobDto) {
+    try {
+      updateJob(id, updatedJob);
+      toast.success("Job updated successfully");
+      navigate("/jobs");
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to update job");
+    }
   }
 
   return (
