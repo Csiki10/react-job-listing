@@ -1,5 +1,5 @@
-export interface Job {
-  id: string;
+export interface JobDTO {
+  _id: string;
   title: string;
   type: string;
   location: string;

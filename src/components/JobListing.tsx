@@ -8,8 +8,6 @@ export interface JobListingProps {
 }
 
 const JobListing = ({ job }: JobListingProps) => {
-  console.warn(job);
-  console.warn(job.id);
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const description = showFullDescription

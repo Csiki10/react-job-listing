@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { Job } from "../models/job";
+import { JobDTO } from "../models/jobDTO";
 
 interface Porps {
   isHomePage: boolean;
@@ -15,15 +16,19 @@ const JobListings = ({ isHomePage }: Porps) => {
   useEffect(() => {
     const fetchJobs = async () => {
       const apiUrl = isHomePage
-        ? `${import.meta.env.VITE_API_URL}/jobs`
+        ? `${import.meta.env.VITE_API_URL}/jobs/limit/3`
         : `${import.meta.env.VITE_API_URL}/jobs`;
-
-      console.log(apiUrl);
 
       try {
         const res = await fetch(apiUrl);
         const data = await res.json();
-        setJobs(data);
+
+        const jobsCopy = data.map((job: JobDTO) => ({
+          ...job,
+          id: job._id,
+        }));
+
+        setJobs(jobsCopy);
       } catch (error) {
         console.log("error: " + error);
       } finally {
