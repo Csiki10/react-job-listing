@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addJob } from "../services/api";
 import { toast } from "react-toastify";
-import { CreateJobDto } from "../models/Job";
+import { CreateJobDto } from "../types/Job";
 
 const AddJobPage = () => {
   const [title, setTitle] = useState("");

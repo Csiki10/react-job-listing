@@ -2,7 +2,7 @@ import JobListing from "./JobListing";
 import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
-import { Job, JobDto } from "../models/Job";
+import { Job, JobDto } from "../types/Job";
 import { JobDtoToJob } from "../converters/jobConverter";
 
 interface Porps {

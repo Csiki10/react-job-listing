@@ -1,7 +1,7 @@
 import { useLoaderData, Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaMapLocation } from "react-icons/fa6";
-import { Job } from "../models/Job";
+import { Job } from "../types/Job";
 import { deleteJob } from "../services/api";
 import { toast } from "react-toastify";
 

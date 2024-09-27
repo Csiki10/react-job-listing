@@ -1,4 +1,4 @@
-import { Job, JobDto } from "../models/Job";
+import { Job, JobDto } from "../types/Job";
 
 function JobDtoToJob(jobDto: JobDto): Job {
   return {
