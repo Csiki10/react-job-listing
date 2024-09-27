@@ -23,9 +23,13 @@ const JobListings = ({ isHomePage }: Porps) => {
         const res = await fetch(apiUrl);
         const data = await res.json();
 
-        const convertedJobs = data.map((job: JobDto) => JobDtoToJob(job));
+        const convertedJobs: Array<Job> = data.map((job: JobDto) =>
+          JobDtoToJob(job)
+        );
+        console.log("convertedJobs: " + convertedJobs);
+
         setJobs(convertedJobs);
-        console.log("JobListings: " + jobs);
+        console.log("jobs: " + jobs);
       } catch (error) {
         console.log("error: " + error);
       } finally {
