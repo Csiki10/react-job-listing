@@ -42,7 +42,7 @@ const EditJobPage = () => {
   }
 
   function handleEditJob(id: string, updatedJob: UpdateJobDto) {
-    console.log("handleEditJob: " + updatedJob);
+    console.log("handleEditJob: " + updatedJob.title);
     try {
       updateJob(id, updatedJob);
       toast.success("Job updated successfully");

@@ -38,7 +38,7 @@ const AddJobPage = () => {
   }
 
   function handleAddJob(newJob: CreateJobDto) {
-    console.log("handleAddJob: " + newJob);
+    console.log("handleAddJob: " + newJob.title);
 
     try {
       addJob(newJob);

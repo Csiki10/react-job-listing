@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Spinner from "./Spinner";
 import { Job, JobDto } from "../types/Job";
 import { JobDtoToJob } from "../converters/jobConverter";
+import { useLocation } from "react-router-dom";
 
 interface Porps {
   isHomePage: boolean;
@@ -12,6 +13,7 @@ interface Porps {
 const JobListings = ({ isHomePage }: Porps) => {
   const [jobs, setJobs] = useState(Array<Job>);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -38,7 +40,7 @@ const JobListings = ({ isHomePage }: Porps) => {
     };
 
     fetchJobs();
-  }, []);
+  }, [location]);
 
   return (
     <section className="bg-blue-50 px-4 py-10">
