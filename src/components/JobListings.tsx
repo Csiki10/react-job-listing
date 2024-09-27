@@ -25,6 +25,7 @@ const JobListings = ({ isHomePage }: Porps) => {
 
         const convertedJobs = data.map((job: JobDto) => JobDtoToJob(job));
         setJobs(convertedJobs);
+        console.log("JobListings: " + jobs);
       } catch (error) {
         console.log("error: " + error);
       } finally {
