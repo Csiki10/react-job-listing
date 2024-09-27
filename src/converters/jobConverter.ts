@@ -1,5 +1,4 @@
-import { Job } from "../models/Job";
-import { JobDto } from "../models/JobDto";
+import { Job, JobDto } from "../models/Job";
 
 function JobDtoToJob(jobDto: JobDto): Job {
   return {

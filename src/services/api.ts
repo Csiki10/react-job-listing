@@ -1,5 +1,4 @@
-import { CreateJobDto } from "../models/CreateJobDto";
-import { UpdateJobDto } from "../models/UpdateJobDto";
+import { CreateJobDto, UpdateJobDto } from "../models/Job";
 
 const apiUrl = `${import.meta.env.VITE_API_URL}`;
 

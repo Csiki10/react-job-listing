@@ -1,6 +1,5 @@
 import { JobDtoToJob } from "../converters/jobConverter";
-import { Job } from "../models/Job";
-import { JobDto } from "../models/JobDto";
+import { Job, JobDto } from "../models/Job";
 
 const jobLoader = async (params: any): Promise<Job> => {
   const apiUrl = `${import.meta.env.VITE_API_URL}`;

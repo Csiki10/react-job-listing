@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
-import { Job } from "../models/Job";
-import { UpdateJobDto } from "../models/UpdateJobDto";
+import { Job, UpdateJobDto } from "../models/Job";
 import { updateJob } from "../services/api";
 import { toast } from "react-toastify";
 
