@@ -1,4 +1,4 @@
-export interface Job {
+interface Job {
   id: string;
   title: string;
   type: string;
@@ -13,7 +13,7 @@ export interface Job {
   };
 }
 
-export interface CreateJobDto {
+interface CreateJobDto {
   title: string;
   type: string;
   location: string;
@@ -27,7 +27,7 @@ export interface CreateJobDto {
   };
 }
 
-export interface JobDto {
+interface JobDto {
   _id: string;
   title: string;
   type: string;
@@ -42,7 +42,7 @@ export interface JobDto {
   };
 }
 
-export interface UpdateJobDto {
+interface UpdateJobDto {
   title: string;
   type: string;
   location: string;
@@ -55,3 +55,5 @@ export interface UpdateJobDto {
     contactPhone: string;
   };
 }
+
+export type { Job, CreateJobDto, JobDto, UpdateJobDto };
