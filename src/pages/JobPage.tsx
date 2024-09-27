@@ -19,6 +19,7 @@ const JobPage = () => {
   }
 
   function handleDelteJob(jobId: string) {
+    console.log("handleDelteJob: " + jobId);
     try {
       deleteJob(jobId);
       toast.success("Job deleted successfully");

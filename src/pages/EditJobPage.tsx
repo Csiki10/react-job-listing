@@ -42,6 +42,7 @@ const EditJobPage = () => {
   }
 
   function handleEditJob(id: string, updatedJob: UpdateJobDto) {
+    console.log("handleEditJob: " + updatedJob);
     try {
       updateJob(id, updatedJob);
       toast.success("Job updated successfully");

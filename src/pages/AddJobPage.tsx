@@ -38,6 +38,8 @@ const AddJobPage = () => {
   }
 
   function handleAddJob(newJob: CreateJobDto) {
+    console.log("handleAddJob: " + newJob);
+
     try {
       addJob(newJob);
       toast.success("Job updated successfully");
