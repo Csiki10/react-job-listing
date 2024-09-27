@@ -2,9 +2,9 @@ import JobListing from "./JobListing";
 import { useState } from "react";
 import { useEffect } from "react";
 import Spinner from "./Spinner";
-import { Job } from "../models/job";
-import { JobDto } from "../models/jobDto";
+import { Job } from "../models/Job";
 import { JobDtoToJob } from "../converters/jobConverter";
+import { JobDto } from "../models/JobDto";
 
 interface Porps {
   isHomePage: boolean;
